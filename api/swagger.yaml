@@ -1,0 +1,47 @@
+---
+swagger: "2.0"
+info:
+  description: "API for getting the current weather information."
+  version: "1.0"
+  title: "Simple Weather API"
+host: "localhost:3000"
+basePath: "/api"
+produces:
+- "application/json"
+paths:
+  /greeter:
+    get:
+      tags:
+      - "greeter"
+      description: "Returns the best greeting for a requested name"
+      operationId: "getGreeting"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful request."
+          schema:
+            $ref: "#/definitions/Greeting"
+        default:
+          description: "Invalid request."
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Greeter"
+definitions:
+  Error:
+    required:
+    - "message"
+    properties:
+      message:
+        type: "string"
+  Greeting:
+    required:
+    - "greeting"
+    properties:
+      greeting:
+        type: "string"
+    example:
+      greeting: "greeting"
