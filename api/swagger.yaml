@@ -1,4 +1,3 @@
----
 swagger: "2.0"
 info:
   description: "API for getting the current weather information."
@@ -7,19 +6,19 @@ info:
 host: "localhost:3000"
 basePath: "/api"
 produces:
-- "application/json"
+  - "application/json"
 paths:
   /greeter:
     get:
       tags:
-      - "greeter"
+        - "greeter"
       description: "Returns the best greeting for a requested name"
       operationId: "getGreeting"
       parameters:
-      - name: "name"
-        in: "query"
-        required: true
-        type: "string"
+        - name: "name"
+          in: "query"
+          required: true
+          type: "string"
       responses:
         200:
           description: "Successful request."
@@ -30,18 +29,50 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "Greeter"
+  /tree:
+    get:
+      tags:
+        - "tree"
+      description: "Returns the best greeting for a requested name"
+      operationId: "getTree"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Successful request."
+          schema:
+            $ref: "#/definitions/IntegerTreeNode"
+        default:
+          description: "Invalid request."
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Tree"
+
 definitions:
   Error:
     required:
-    - "message"
+      - "message"
     properties:
       message:
         type: "string"
   Greeting:
     required:
-    - "greeting"
+      - "greeting"
     properties:
       greeting:
         type: "string"
     example:
       greeting: "greeting"
+  IntegerTreeNode:
+    properties:
+      values:
+        type: array
+        items:
+          type: integer
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/IntegerTreeNode'
